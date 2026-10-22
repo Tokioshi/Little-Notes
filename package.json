@@ -1,0 +1,19 @@
+{
+    "name": "little-notes",
+    "version": "1.0.0",
+    "license": "MIT",
+    "scripts": {
+        "dev": "pnpm --filter @workspace/notes dev",
+        "build": "pnpm --filter @workspace/notes build",
+        "preview": "pnpm --filter @workspace/notes serve",
+        "typecheck": "pnpm --filter @workspace/notes typecheck"
+    },
+    "private": true,
+    "engines": {
+        "node": ">=20.19.0"
+    },
+    "devDependencies": {
+        "prettier": "^3.9.10",
+        "typescript": "~5.9.3"
+    }
+}
