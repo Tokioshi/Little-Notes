@@ -1,6 +1,39 @@
 {
-    "buildCommand": "pnpm --filter @workspace/notes build",
-    "outputDirectory": "artifacts/notes/dist",
-    "installCommand": "pnpm install --no-frozen-lockfile --filter @workspace/notes",
-    "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "services": {
+        "api-server": {
+            "root": "artifacts/api-server",
+            "framework": "express",
+            "entrypoint": "src/app.ts",
+            "installCommand": "pnpm install --no-frozen-lockfile --filter @workspace/api-server..."
+        },
+        "mockup-sandbox": {
+            "root": "artifacts/mockup-sandbox",
+            "framework": "vite",
+            "installCommand": "pnpm install --no-frozen-lockfile --filter @workspace/mockup-sandbox",
+            "buildCommand": "pnpm run build",
+            "outputDirectory": "dist"
+        },
+        "notes": {
+            "root": "artifacts/notes",
+            "framework": "vite",
+            "installCommand": "pnpm install --no-frozen-lockfile --filter @workspace/notes",
+            "buildCommand": "pnpm run build",
+            "outputDirectory": "dist"
+        }
+    },
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": {
+                "service": "api-server"
+            }
+        },
+        {
+            "source": "/(.*)",
+            "destination": {
+                "service": "notes"
+            }
+        }
+    ]
 }
